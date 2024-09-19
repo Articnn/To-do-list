@@ -20,7 +20,7 @@ class Task(db.Model):
     title = db.Column(db.String(150), nullable=False)
     completed = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
+    priority = db.Column(db.Integer, default=1)  # Añadimos la columna de prioridad
     user = db.relationship('User', back_populates='tasks')
     
     

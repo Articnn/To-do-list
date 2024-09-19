@@ -151,6 +151,23 @@ def delete_task(task_id):
     db.session.commit()
     return redirect(url_for('tasks'))
 
+@app.route('/edit_task/<int:task_id>', methods=['GET', 'POST'])
+@login_required
+def edit_task(task_id):
+    task = Task.query.get_or_404(task_id)
+    
+    if request.method == 'POST':
+        task.title = request.form['title']
+        task.priority = request.form['priority']
+        db.session.commit()
+        return redirect(url_for('tasks'))  # Redirige a la lista de tareas
+    
+    return render_template('edit_task.html', task=task)
+
+
+
+
+
 # Crear las tablas en la base de datos
 with app.app_context():
     db.create_all()
